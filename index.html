@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#092b4c">
+  <title>SmartRiohacha | Ciudad más segura, ciudad conectada</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="SmartRiohacha inicio">
+      <img class="brand-logo" src="assets/logo.svg" alt="SmartRiohacha"><span>Smart<span class="brand-light">Riohacha</span><small>CIUDAD INTELIGENTE</small></span>
+    </a>
+    <nav>
+      <a href="#inicio">Inicio</a><a href="#reportar">Reportar</a><a href="#mapa">Mapa</a><a href="#estadisticas">Estadísticas</a>
+    </nav>
+    <button class="button button-outline" id="adminToggle">Panel de gestión</button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="pulse"></span> TECNOLOGÍA AL SERVICIO DE LA CIUDAD</span>
+        <h1>Una Riohacha más<br><em>segura y conectada.</em></h1>
+        <p>Reporta baches y fallas en el alumbrado público. Tu reporte ayuda a identificar los puntos críticos y a construir una ciudad que responde.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#reportar">Crear un reporte <span>→</span></a><a class="text-link" href="#mapa">Explorar el mapa ↓</a></div>
+        <div class="hero-note"><span class="note-icon">⌖</span> Participación ciudadana · Datos georreferenciados</div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-card">
+          <div class="visual-top"><span>MONITOREO URBANO</span><span class="live-dot">● EN VIVO*</span></div>
+          <div class="hero-photo-wrap">
+            <img class="hero-photo" src="assets/portada-riohacha.jpg" alt="Vista costera urbana ilustrativa inspirada en Riohacha">
+            <span class="photo-chip">RIOHACHA · LA GUAJIRA</span>
+            <span class="photo-pin pin-a">!</span><span class="photo-pin pin-b">⌁</span>
+          </div>
+          <div class="visual-bottom"><div><b id="heroTotal">0</b><small>REPORTES REGISTRADOS</small></div><div><b id="heroPending">0</b><small>POR ATENDER</small></div><div><b id="heroSolved">0</b><small>RESUELTOS</small></div></div>
+        </div>
+        <div class="floating-tag"><span>✦</span> Tu ciudad, tu voz</div>
+      </div>
+    </section>
+
+    <section class="problem-strip">
+      <div><span class="strip-number">01</span><b>Identifica</b><small>Detecta una falla en tu sector.</small></div>
+      <div><span class="strip-number">02</span><b>Reporta</b><small>Adjunta foto y ubicación.</small></div>
+      <div><span class="strip-number">03</span><b>Da seguimiento</b><small>Consulta el estado del reporte.</small></div>
+    </section>
+
+    <section class="section gallery-section" id="galeria">
+      <div class="section-heading"><div><span class="eyebrow">GALERÍA MULTIMEDIA</span><h2>Lo que queremos transformar</h2><p>Imágenes ilustrativas de los retos urbanos y de la visión de una ciudad conectada.</p></div><span class="section-index">01 / CONTEXTO</span></div>
+      <div class="gallery-grid">
+        <article class="gallery-card gallery-wide"><img src="assets/portada-riohacha.jpg" alt="Paisaje costero urbano ilustrativo"><div class="gallery-caption"><span>01 · NUESTRO ENTORNO</span><h3>Una ciudad con potencial</h3></div></article>
+        <article class="gallery-card"><img src="assets/bache-vial.jpg" alt="Ejemplo ilustrativo de bache en una vía"><div class="gallery-caption"><span>02 · INFRAESTRUCTURA VIAL</span><h3>Reportar para reparar</h3></div></article>
+        <article class="gallery-card"><img src="assets/alumbrado-publico.jpg" alt="Ejemplo ilustrativo de alumbrado público"><div class="gallery-caption"><span>03 · ESPACIO PÚBLICO</span><h3>Calles mejor iluminadas</h3></div></article>
+      </div>
+      <div class="smart-vision"><img src="assets/ciudad-inteligente.jpg" alt="Representación ilustrativa de una ciudad inteligente"><div><span class="eyebrow">VISIÓN SMART CITY · INDUSTRIA 4.0</span><h3>Datos ciudadanos que impulsan mejores decisiones.</h3><p>La plataforma organiza reportes georreferenciados para facilitar la identificación de puntos críticos y, a futuro, integrar sensores IoT y analítica de datos.</p></div></div>
+      <p class="image-disclaimer">Nota: estas imágenes son ilustrativas y fueron creadas para el prototipo. Para la entrega final, reemplázalas por fotografías propias de puntos críticos reales de Riohacha, como plantea la propuesta.</p>
+    </section>
+
+    <section class="section report-section" id="reportar">
+      <div class="section-heading"><div><span class="eyebrow">PARTICIPACIÓN CIUDADANA</span><h2>Reporta una incidencia</h2><p>Cuéntanos qué sucede. Entre más precisa sea la información, más útil será el reporte.</p></div><span class="section-index">01 / REPORTE</span></div>
+      <div class="report-layout">
+        <form id="reportForm" class="panel form-panel">
+          <div class="form-title"><span class="form-icon">＋</span><div><b>Nuevo reporte</b><small>Los campos marcados con * son obligatorios.</small></div></div>
+          <label>Tipo de incidencia *</label>
+          <div class="type-options">
+            <label class="type-option"><input type="radio" name="type" value="Bache vial" checked><span class="type-symbol">▰</span><b>Bache vial</b><small>Daño en la vía</small></label>
+            <label class="type-option"><input type="radio" name="type" value="Alumbrado público"><span class="type-symbol">☼</span><b>Alumbrado</b><small>Luminaria apagada</small></label>
+          </div>
+          <label for="description">Descripción *</label>
+          <textarea id="description" maxlength="500" required placeholder="Ej. Bache profundo cerca de la esquina, en el carril derecho..."></textarea>
+          <div class="two-fields"><div><label for="sector">Barrio o sector</label><input id="sector" maxlength="100" placeholder="Ej. Centro"></div><div><label for="reporter">Nombre (opcional)</label><input id="reporter" maxlength="80" placeholder="Tu nombre"></div></div>
+          <label>Ubicación del incidente *</label>
+          <div class="location-row"><input id="latitude" type="number" step="any" placeholder="Latitud" required><input id="longitude" type="number" step="any" placeholder="Longitud" required></div>
+          <div class="location-actions"><button type="button" class="button button-soft" id="useLocation">◎ Usar mi ubicación</button><span id="locationMessage">O selecciona un punto en el mapa.</span></div>
+          <label for="photo">Fotografía de evidencia</label>
+          <label class="upload-box" for="photo"><span>＋</span><b>Adjuntar fotografía</b><small>JPG, PNG o WEBP · Máximo 2 MB</small><img id="photoPreview" alt="Vista previa" hidden></label>
+          <input id="photo" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          <button class="button button-primary submit-button" type="submit">Enviar reporte <span>→</span></button>
+          <p class="privacy-note">Prototipo académico: los reportes se guardan en este navegador para la demostración.</p>
+        </form>
+        <aside class="panel map-panel">
+          <div class="map-panel-head"><div><b>Ubica el incidente</b><small>Haz clic en el mapa para marcar el punto.</small></div><span class="map-legend"><i></i> Ubicación</span></div>
+          <div id="pickMap" class="map"></div>
+          <div class="map-coordinates"><span>COORDENADAS SELECCIONADAS</span><b id="selectedCoordinates">Sin seleccionar</b></div>
+          <div class="map-help">Consejo: puedes arrastrar el marcador para ajustar la ubicación.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section map-section" id="mapa">
+      <div class="section-heading"><div><span class="eyebrow">TRANSPARENCIA Y SEGUIMIENTO</span><h2>Incidencias en la ciudad</h2><p>Consulta los reportes registrados y su estado actual.</p></div><span class="section-index">02 / MAPA PÚBLICO</span></div>
+      <div class="panel public-map-panel">
+        <div class="map-toolbar"><div class="filter-group"><button class="filter active" data-filter="Todos">Todos</button><button class="filter" data-filter="Bache vial">Baches</button><button class="filter" data-filter="Alumbrado público">Alumbrado</button></div><span id="mapCount">0 incidencias</span></div>
+        <div id="publicMap" class="map public-map"></div>
+      </div>
+      <div class="report-list-head"><h3>Reportes recientes</h3><span>Actualizados en este dispositivo</span></div>
+      <div id="reportList" class="report-list"></div>
+    </section>
+
+    <section class="section stats-section" id="estadisticas">
+      <div class="section-heading"><div><span class="eyebrow">INFORMACIÓN PARA DECIDIR</span><h2>La ciudad en datos</h2><p>Un resumen de las incidencias registradas en el prototipo.</p></div><span class="section-index">03 / ESTADÍSTICAS</span></div>
+      <div class="stats-grid"><div class="stat-card"><span>Total de reportes</span><b id="statTotal">0</b><small>Incidencias registradas</small></div><div class="stat-card"><span>Pendientes</span><b id="statPending">0</b><small>Esperan revisión</small></div><div class="stat-card"><span>En revisión</span><b id="statReview">0</b><small>En proceso de atención</small></div><div class="stat-card"><span>Resueltos</span><b id="statSolved">0</b><small>Marcados como atendidos</small></div></div>
+      <div class="insight-panel"><div><span class="eyebrow">VISIÓN SMART CITY</span><h3>De los reportes a la prevención.</h3><p>La información histórica puede ayudar a identificar zonas críticas, priorizar mantenimiento y, en una futura etapa, integrar sensores IoT en luminarias inteligentes.</p></div><div class="insight-symbol">⌁</div></div>
+    </section>
+
+    <section id="adminSection" class="section admin-section" hidden>
+      <div class="section-heading"><div><span class="eyebrow">GESTIÓN INTERNA · DEMOSTRACIÓN</span><h2>Panel de administración</h2><p>Actualiza el estado de los reportes recibidos en este navegador.</p></div><button class="button button-outline" id="closeAdmin">Cerrar panel</button></div>
+      <div class="panel admin-panel"><div class="admin-toolbar"><b>Gestión de incidencias</b><button class="button button-danger" id="resetDemo">Restablecer datos de ejemplo</button></div><div class="table-wrap"><table><thead><tr><th>Reporte</th><th>Tipo</th><th>Sector</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="adminRows"></tbody></table></div></div>
+      <p class="admin-warning">Este panel no tiene autenticación ni conexión con una entidad pública. Es una vista demostrativa para el proyecto académico.</p>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#inicio"><img class="brand-logo" src="assets/logo.svg" alt="SmartRiohacha"><span>Smart<span class="brand-light">Riohacha</span><small>CIUDAD INTELIGENTE</small></span></a><p>Propuesta tecnológica de Ciudades Inteligentes e Industria 4.0.</p><span>UNIVERSIDAD DE LA GUAJIRA · INGENIERÍA DE SISTEMAS</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
